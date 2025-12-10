@@ -1,0 +1,7 @@
+services:
+  it-tools:
+    image: docker.io/corentinth/it-tools:latest
+    container_name: it-tools
+    restart: always
+    ports:
+      - "${HOST_PORT}:80"

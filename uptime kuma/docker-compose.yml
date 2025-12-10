@@ -1,0 +1,18 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    restart: always
+    ports:
+      - "${HOST_PORT}:3001" 
+    volumes:
+      - ${HOST_VOLUME}:/app/data  # Configuring persistent storage
+    network_mode: bridge
+    environment:
+      - TZ=Asia/Shanghai  # Set the timezone (change to your preferred local timezone so monitoring times are the same)
+      - UMASK=0022  # Set your file permissions manually
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

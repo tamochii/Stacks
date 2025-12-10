@@ -1,0 +1,10 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: always
+    ports:
+      - "${HOST_PORT}:80"
+    volumes:
+      - ${HOST_VOLUME}:/data/
+    network_mode: bridge

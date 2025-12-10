@@ -1,0 +1,14 @@
+services:
+      qbittorrent:
+         image: linuxserver/qbittorrent:latest
+         container_name: qbittorrent
+         environment:
+            PUID: "1000"
+            PGID: "1000"
+            TZ: "Asia/Shanghai"
+            UMASK_SET: "022"
+         network_mode: "host"
+         volumes:
+            - ${HOST_VOLUME_CONFIG}:/config
+            - ${HOST_VOLUME_DOWNLOADS}:/downloads
+         restart: unless-stopped

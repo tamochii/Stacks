@@ -1,0 +1,13 @@
+services:
+  chromium:
+    image: lscr.io/linuxserver/chromium:latest
+    container_name: chromium
+    volumes:
+      - ${HOST_VOLUME}:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+      - CHROME_CLI=${IP_ADDRESS} 
+    restart: unless-stopped
+    network_mode: host

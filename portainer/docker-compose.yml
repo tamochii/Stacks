@@ -1,0 +1,12 @@
+services:
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:lts
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${HOST_VOLUME}:/data
+    ports:
+      - ${HOST_PORT_WEB}:9000
+      - ${HOST_PORT}:8000  # Remove if you do not intend to use Edge Agents
+    network_mode: bridge

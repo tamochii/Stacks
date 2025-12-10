@@ -1,0 +1,14 @@
+services:
+  alist:
+    image: 'xhofe/alist:latest-aio'
+    container_name: alist
+    volumes:
+      - '${HOST_VOLUME}:/opt/alist/data'
+    ports:
+      - '${HOST_PORT}:5244'
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK=022
+    restart: unless-stopped
+    network_mode: bridge

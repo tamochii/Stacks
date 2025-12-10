@@ -1,0 +1,15 @@
+services:
+  typecho:
+    image: joyqi/typecho:1.2.1-php8.0-apache
+    container_name: typecho
+    environment:
+      - TIMEZONE=Asia/Shanghai
+      - TYPECHO_SITE_URL=${TYPECHO_SITE_URL}
+      - TYPECHO_DB_ADAPTER=${TYPECHO_DB_ADAPTER}
+      - TYPECHO_DB_FILE=${TYPECHO_DB_FILE}
+    ports:
+      - "${HOST_PORT}:80"
+    volumes:
+      - ${HOST_VOLUME}:/app
+    restart: always
+    network_mode: bridge

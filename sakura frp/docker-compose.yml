@@ -1,0 +1,15 @@
+services:
+  sakura: 
+    image: natfrp.com/launcher:latest
+    container_name: sakura
+    network_mode: host
+    restart: always
+    environment:
+      - LANG=zh_CN.UTF-8
+      - TZ=Asia/Shanghai
+      - NATFRP_TOKEN=${NATFRP_TOKEN} 
+      - NATFRP_REMOTE=${NATFRP_REMOTE} 
+
+    volumes:
+      - ${HOST_VOLUME_CONFIG}:/run
+      - ${HOST_VOLUME_LOGS}:/var/log/natfrp

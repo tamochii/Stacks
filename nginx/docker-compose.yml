@@ -1,0 +1,10 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: always
+    network_mode: bridge
+    ports:
+      - "${HOST_PORT}:80"
+    volumes:
+      - ${HOST_VOLUME}:/usr/share/nginx/html

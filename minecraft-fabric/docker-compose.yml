@@ -1,0 +1,27 @@
+services:
+  minecraft-fabric:
+    image: itzg/minecraft-server:stable-java21
+    container_name: minecraft-fabric
+    restart: unless-stopped
+    ports:
+      - "${HOST_PORT_SERVER}:25565"
+      - "${HOST_PORT_RCON}:25575"
+    environment:
+      EULA: "TRUE"
+      VERSION: "${MINECRAFT_VERSION:-1.21.6}"
+      TYPE: "FABRIC"
+      MEMORY: "${MEMORY:-4G}"
+      TZ: "Asia/Shanghai"
+      UID: "1000"         
+      GID: "1000"
+      # Optional: pin Fabric installer / loader versions
+      # FABRIC_INSTALLER_VERSION: "1.0.1"
+      # FABRIC_LOADER_VERSION: "0.16.10"
+      # Since Fabric server type only includes the loader, most mods
+      # require the fabric-api. The image can auto-download projects
+      # from Modrinth via the MODRINTH_PROJECTS env (one per line).
+      MODRINTH_PROJECTS: |
+        fabric-api
+    volumes:
+      - ${HOST_VOLUME}:/data
+    network_mode: bridge

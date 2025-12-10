@@ -1,0 +1,12 @@
+services:
+  mafl:
+    container_name: mafl # change as needed
+    image: hywax/mafl
+    restart: always
+    ports:
+      - "${HOST_PORT}:3000"
+    volumes:
+      - ${HOST_VOLUME}:/app/data/config.yml
+      - ${HOST_VOLUME_FAVICONS}:/app/public/favicons
+      - ${HOST_VOLUME_ICONS}:/app/public/icons
+    network_mode: bridge

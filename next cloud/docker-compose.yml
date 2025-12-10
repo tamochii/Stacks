@@ -1,0 +1,43 @@
+services:
+  db:
+    image: mariadb:10.6
+    container_name: nextcloud-db
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    volumes:
+      - /vol1/1000/Docker/nextcloud/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - TZ=Asia/Shanghai  # 数据库时区
+    network_mode: bridge
+
+  redis:
+    image: redis:alpine
+    container_name: nextcloud-redis
+    restart: always
+    network_mode: bridge
+
+  app:
+    image: nextcloud:latest
+    container_name: nextcloud-app
+    restart: always
+    ports:
+      - 10009:80
+    volumes:
+      - /vol1/1000/Docker/nextcloud/data:/var/www/html
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
+      - NEXTCLOUD_TRUSTED_DOMAINS=next.tamochi.cn
+      - OVERWRITEHOST=next.tamochi.cn     
+      - OVERWRITEPROTOCOL=https
+    depends_on:
+      - db
+      - redis
+    network_mode: bridge

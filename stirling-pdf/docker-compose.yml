@@ -1,0 +1,18 @@
+services:
+  stirling-pdf:
+    image: stirlingtools/stirling-pdf:latest-fat
+    container_name: stirling-pdf
+    ports:
+      - '${HOST_PORT}:8080'
+    volumes:
+      - ${HOST_VOLUME_TESSDATA}:/usr/share/tessdata  # OCR 语言包路径
+      - ${HOST_VOLUME_CONFIG}:/configs                  # 配置文件
+      - ${HOST_VOLUME_LOGS}:/logs                        # 日志文件
+    environment:
+      - DOCKER_ENABLE_SECURITY=false        # 内网自用暂不开启登录，如果对外网开放请改为 true
+      - SYSTEM_DEFAULT_LOCALE=zh_CN         # 系统默认语言设为中文
+      - LANGS=zh_CN                         # 界面语言选项
+      - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=true # 开启电子书转换等高级功能
+      - MODE=BOTH                           # 显式声明前后端合体（其实默认也是这个）
+    restart: always
+    network_mode: bridge

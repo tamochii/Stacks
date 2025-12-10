@@ -1,0 +1,12 @@
+services:
+  xunlei:
+    image: cnk3x/xunlei:latest
+    container_name: thunder
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - ${HOST_VOLUME_DATA}:/xunlei/data
+      - ${HOST_VOLUME_DOWNLOADS}:/xunlei/downloads
+    ports:
+      - "${HOST_PORT}:2345"
+    network_mode: host
